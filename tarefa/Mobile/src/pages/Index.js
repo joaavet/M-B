@@ -1,24 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Text, Image, StyleSheet, TouchableOpacity, FlatList} from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Icon } from 'react-native-elements'
 
 
 import avatar from "../../assets/logo.png"
+import api from '../service/api'
+import  ListItem from '../components/ListItem'
 
 export default function Index({ navigation }) {
 
-  const [user, setUser] = useState('')
-  
-  useEffect(() => {    
+  const [user, setUser] = useState('');
+  const [materias, setMaterias] = useState('');
+
+  async function listaMaterias(){
+    const materias = await api.get('/materia')
+   console.log(materias.data)
+    if(materias.status == 200){
+      setMaterias(materias.data)
+    }else{
+      let msgError =response.data;
+      console.log(msgError.mensagem);
+    }
+   }
+
+  useEffect(() => {  
+    if(!materias){
+      listaMaterias()
+    }  
     AsyncStorage.getItem('@user').then(user => {
       if(!user){
         navigation.navigate("Login")
       }else{
         setUser(JSON.parse(user))
+       
        }
-    })
+    }) 
   })
 
   function logoff(){
@@ -54,14 +72,25 @@ export default function Index({ navigation }) {
         </View>
 
         <View>
-        <Text>Content</Text>
+         <FlatList 
+          data ={materias}
+          keyExtractor = {item => item._id}  
+          renderItem={({ item }) => ( 
+          <ListItem
+            data = {item}
+            handleLeft = {() =>{alert('Notas') }}
+            handleRight = {() =>{alert('Faltas') }}
+          />
+          )}
+          ItemSeparatorComponent = {() => <Separator/>}
+        />
         </View>
 
       </View>
     );
   }
-
-  const styles = StyleSheet.create({
+  const Separator = () => <View style ={{flex : 1 , height: 2 , backgroundColor: '#DDD'}}></View>
+const styles = StyleSheet.create({
     container :{
       flex:1,
       alignItems: 'center'
