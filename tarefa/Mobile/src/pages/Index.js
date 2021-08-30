@@ -13,6 +13,9 @@ export default function Index({ navigation }) {
 
   const [user, setUser] = useState('');
   const [materias, setMaterias] = useState('');
+  
+  
+
 
   async function listaMaterias(){
     const materias = await api.get('/materia')
@@ -48,6 +51,7 @@ export default function Index({ navigation }) {
     navigation.navigate('Usuario')
   }
 
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -78,10 +82,10 @@ export default function Index({ navigation }) {
           renderItem={({ item }) => ( 
           <ListItem
             data = {item}
-            handleLeft = {() =>{alert('Notas') }}
-            handleRight = {() =>{alert('Faltas') }}
+            handleLeft = {()=>  navigation.navigate('Notas')}
+            handleRight = {()=> {navigation.navigate('Faltas')}}
           />
-          )}
+          )} 
           ItemSeparatorComponent = {() => <Separator/>}
         />
         </View>
@@ -90,7 +94,7 @@ export default function Index({ navigation }) {
     );
   }
   const Separator = () => <View style ={{flex : 1 , height: 2 , backgroundColor: '#DDD'}}></View>
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     container :{
       flex:1,
       alignItems: 'center'
