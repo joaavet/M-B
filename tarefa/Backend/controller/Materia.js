@@ -1,8 +1,8 @@
 const Materia = require('../model/Materia')
 //CRUD - CREATE - READ- UPDATE - DELETE
 module.exports ={
-    async index(req, res){
-        let materias = await Materia.find().sort({name:1})
+    async index(req, res){    
+      let materias = await Materia.find().sort({id:1})
         return res.json(materias)
     },
 
