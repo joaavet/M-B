@@ -12,59 +12,28 @@ import  ListItem from '../components/ListItem'
 export default function Index({ navigation }) {
 
   const [user, setUser] = useState('');
-  const [materias, setMaterias] = useState('');
-  const [protocolos, setProtocolo] = useState('');;
+  const [protocolos, setProtocolo] = useState('');
   
-  function protocol() {
-    navigation.navigate('Protocolo');
-  }
-  
-
-
-  async function listaMaterias(){
-    const materias = await api.get('/materia')
-   console.log(materias.data)
-    if(materias.status == 200){
-      setMaterias(materias.data)
-    }else{
-      let msgError =response.data;
-      console.log(msgError.mensagem);
-    }
-   }
- async function Lisprotocolo(){
-    const protocolos = await api.get('/protocolos')
+  async function Lisprotocolo(){
+    const protocolos = await api.get('/protocolo')
    console.log(protocolos.data)
     if(protocolos.status == 200){
-      setMaterias(protocolos.data)
+      setProtocolo(protocolos.data)
     }else{
       let msgError =response.data;
-      console.log(msgError.mensagem);
+      console.log(msgError.mensagem)
     }
-   } 
+  
+    
+  }
 
-   
   useEffect(() => {  
-    if(!materias){
-      listaMaterias()
+    if(!protocolos){
+      Lisprotocolo()
     }  
-    AsyncStorage.getItem('@user').then(user => {
-      if(!user){
-        navigation.navigate("Login")
-      }else{
-        setUser(JSON.parse(user))
-       
-       }
-    }) 
-  })
+  
 
-  function logoff(){
-    AsyncStorage.removeItem('@user'); // desloga o usuario
-    navigation.navigate("Login")
-  }
-
-  function settings(){
-    navigation.navigate('Usuario')
-  }
+  
 
 
     return (
@@ -104,35 +73,19 @@ export default function Index({ navigation }) {
           data ={materias}
           keyExtractor = {item => item._id}  
           renderItem={({ item }) => ( 
-          <ListItem
-            data = {item}
-            handleLeft = {()=>  navigation.navigate('Notas')}
-            handleRight = {()=> {navigation.navigate('Faltas')}}
-          />
-          )} 
-          
-          ItemSeparatorComponent = {() => <Separator/>}
-        />
-         <FlatList 
-          data ={protocolos}
-          keyExtractor = {item => item._id}  
-          renderItem={({ item }) => ( 
           <Lisprotocolo
             data = {item}
-            handleLeft = {()=>  navigation.navigate('Notas')}
-            handleRight = {()=> {navigation.navigate('Faltas')}}
+            
           />
           )} 
-          />
-
-        
-           
+          ItemSeparatorComponent = {() => <Separator/>}
+        />
         
         </View>
 
       </View>
     );
-  }
+  });
   const Separator = () => <View style ={{flex : 1 , height: 2 , backgroundColor: '#DDD'}}></View>
   const styles = StyleSheet.create({
     container :{
@@ -180,3 +133,4 @@ export default function Index({ navigation }) {
     marginHorizontal: 10
   }
 });
+}
