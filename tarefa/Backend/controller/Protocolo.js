@@ -2,14 +2,14 @@ const Protocolo = require('../model/Protocolo')
 //CRUD - CREATE - READ- UPDATE - DELETE
 module.exports ={
     async index(req, res){    
-      let protocolos = await Protocolo.find().sort({id:1})
-        return res.json(protocolos)
+      let protocolos = await Protocolo.find()
+        return res.json(protocolos);
     },
 
     async store(req,res){
-        const {name} = req.body;
-        const protocolos = await Protocolo.create({name})
-        return res.json(protocolos)
+         let protocolo = req.body;
+         protocolo = await Protocolo.create(protocolo)
+        return res.json(protocolo);
       },
 
       async update(req,res){

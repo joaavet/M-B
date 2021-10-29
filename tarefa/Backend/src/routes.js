@@ -57,10 +57,10 @@ routes.get('/faltas',FaltasController.index)
 routes.put('/faltas', FaltasController.update)
 routes.delete('/faltas', FaltasController.delete)
 
-routes.get('/protocolos',ProtocoloController.index)
-routes.post('/protocolos',ProtocoloController.store)
-routes.put('/protocolos',ProtocoloController.update)
-routes.delete('/protocolos', ProtocoloController.delete)
+routes.get('/protocolo',ProtocoloController.index)
+routes.post('/protocolo',ProtocoloController.store)
+routes.put('/protocolo',ProtocoloController.update)
+routes.delete('/protocolo', ProtocoloController.delete)
 
 
 routes.get('/medico-clinica',MedicoClinicaController.index)

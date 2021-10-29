@@ -3,7 +3,7 @@ import{ View, Text, StyleSheet} from 'react-native';
 
 import Swipeable from 'react-native-gesture-handler/Swipeable' 
 
-export default function ListItem({data, handleLeft,handleRight}){
+export default function Lisprotocolo({data}){
     
    
       
@@ -13,7 +13,7 @@ export default function ListItem({data, handleLeft,handleRight}){
         
         <View>
             <View style ={styles.container}></View>
-            <Text style={styles.Text}>{data.Protocolo}</Text>
+            <Text style={styles.Text}>{data.prot}</Text>
         </View>
     
     )

@@ -13,7 +13,7 @@ export default function Index({ navigation }) {
 
   const [user, setUser] = useState('');
   const [materias, setMaterias] = useState('');
-  const [protocolos, setProtocolo] = useState('');;
+  
   
   function protocol() {
     navigation.navigate('Protocolo');
@@ -30,17 +30,8 @@ export default function Index({ navigation }) {
       let msgError =response.data;
       console.log(msgError.mensagem);
     }
+   
    }
- async function Lisprotocolo(){
-    const protocolos = await api.get('/protocolos')
-   console.log(protocolos.data)
-    if(protocolos.status == 200){
-      setMaterias(protocolos.data)
-    }else{
-      let msgError =response.data;
-      console.log(msgError.mensagem);
-    }
-   } 
 
    
   useEffect(() => {  
@@ -56,6 +47,8 @@ export default function Index({ navigation }) {
        }
     }) 
   })
+
+   
 
   function logoff(){
     AsyncStorage.removeItem('@user'); // desloga o usuario
@@ -112,18 +105,7 @@ export default function Index({ navigation }) {
           )} 
           
           ItemSeparatorComponent = {() => <Separator/>}
-        />
-         <FlatList 
-          data ={protocolos}
-          keyExtractor = {item => item._id}  
-          renderItem={({ item }) => ( 
-          <Lisprotocolo
-            data = {item}
-            handleLeft = {()=>  navigation.navigate('Notas')}
-            handleRight = {()=> {navigation.navigate('Faltas')}}
-          />
-          )} 
-          />
+   />
 
         
            

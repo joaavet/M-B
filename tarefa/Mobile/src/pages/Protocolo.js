@@ -5,19 +5,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Icon } from 'react-native-elements'
 
 
-import avatar from "../../assets/logo.png"
-import api from '../service/api'
-import  ListItem from '../components/ListItem'
+import avatar from "../../assets/logo.png";
+import api from '../service/api';
+import  Lisprotocolo from '../components/Lisprotocolo';
 
 export default function Index({ navigation }) {
 
   const [user, setUser] = useState('');
   const [protocolos, setProtocolo] = useState('');
   
-  async function Lisprotocolo(){
+  async function Listaprotocolo(){
     const protocolos = await api.get('/protocolo')
    console.log(protocolos.data)
-    if(protocolos.status == 200){
+    if(protocolos.status==200){
       setProtocolo(protocolos.data)
     }else{
       let msgError =response.data;
@@ -29,7 +29,7 @@ export default function Index({ navigation }) {
 
   useEffect(() => {  
     if(!protocolos){
-      Lisprotocolo()
+      Listaprotocolo()
     }  
   
 
@@ -51,9 +51,9 @@ export default function Index({ navigation }) {
             <Image source= {avatar} style={[styles.avatar]}></Image>
           </View>
           <View>
-              <Text style={styles.Name}>{user.name}</Text>
-              <Text>Matricula: {user.ra}</Text>
-              <Text>{user.email}</Text>
+              <Text style={styles.Protocolo}>{user.name}</Text>
+              <Text>Protocolo {user.ra}</Text>
+              <Text>{user.protocolos}</Text>
           </View>
 
           <View style={styles.areaLogout}>
@@ -70,10 +70,10 @@ export default function Index({ navigation }) {
 
         <View>
          <FlatList 
-          data ={materias}
+          data ={protocolos}
           keyExtractor = {item => item._id}  
           renderItem={({ item }) => ( 
-          <Lisprotocolo
+          <Listaprotocolo
             data = {item}
             
           />
